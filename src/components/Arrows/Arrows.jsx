@@ -9,7 +9,7 @@ function Arrows() {
    
     <div className={cl.Arrows}>
       {
-            ArrowsMap.map((item)=><Arrow number={item.number} key={item.number}/>)
+            ArrowsMap.map((item)=><Arrow number={item.number} key={item.number} direction={item.direction}/>)
       }
       
     </div>

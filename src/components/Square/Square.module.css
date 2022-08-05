@@ -1,5 +1,6 @@
 .Square{
-    background-color: red;
+    background-color: rgb(233, 200, 200);
     height: 90px;
     width: 90px;
+    border-radius: 10px;
 }

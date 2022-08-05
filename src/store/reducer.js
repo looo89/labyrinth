@@ -1,35 +1,46 @@
-const ADD='ADD'
+const SET_SELECTED_SQUARE='SET_SELECTED_SQUARE'
 
 const initialState={
     squareMap : [
-        {number: 1, marker: true, selected:false},
-        {number: 2, marker: false, selected:false},
-        {number: 3, marker: false, selected:false},
-        {number: 4, marker: false, selected:false},
-        {number: 5, marker: false, selected:false},
-        {number: 6, marker: false, selected:false},
-        {number: 7, marker: false, selected:false},
-        {number: 8, marker: false, selected:false},
-        {number: 9, marker: false, selected:false},
+        {count: 1, marker: true, selected:false},
+        {count: 2, marker: false, selected:false},
+        {count: 3, marker: false, selected:false},
+        {count: 4, marker: false, selected:false},
+        {count: 5, marker: false, selected:false},
+        {count: 6, marker: false, selected:true},
+        {count: 7, marker: false, selected:false},
+        {count: 8, marker: false, selected:false},
+        {count: 9, marker: false, selected:false},
     ],
     ArrowsMap : [
-        {number: 1, direction: 'top'},
-        {number: 2, direction: 'left'},
-        {number: 3, direction: 'right'},
-        {number: 4, direction: 'bottom'},
-        {number: 5, direction: 'top'},
-        {number: 6, direction: 'top'},
-        {number: 7, direction: 'top'},
-        {number: 8, direction: 'top'},
-        {number: 9, direction: 'top'},
-        {number: 10, direction: 'top'},
+        {number: 1, direction: 'ArrowUp'},
+        {number: 2, direction: 'ArrowLeft'},
+        {number: 3, direction: 'ArrowRight'},
+        {number: 4, direction: 'ArrowDown'},
+        {number: 5, direction: 'ArrowDown'},
+        {number: 6, direction: 'ArrowDown'},
+        {number: 7, direction: 'ArrowDown'},
+        {number: 8, direction: 'ArrowDown'},
+        {number: 9, direction: 'ArrowDown'},
+        {number: 10, direction: 'ArrowDown'},
     ]
 }
 
 export const reducer=(state=initialState, action)=>{
     switch(action.type) {
-        case ADD: {}
+        case SET_SELECTED_SQUARE: {
+            return {...state,
+                squareMap: state.squareMap.map(el=>{
+                    if(el.count===action.payload){
+                        return {...el, selected: true } 
+                    }else { return {...el, selected: false};
+                }
+            }
+        )}
+    }
         
     default: return state
     } 
 }
+
+export const setSelectedSquare=(payload)=>({type: SET_SELECTED_SQUARE, payload})
