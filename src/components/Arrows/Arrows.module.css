@@ -1,0 +1,5 @@
+.Arrows{
+    display: flex;
+    flex-direction: row;
+    margin: 30px;
+}
