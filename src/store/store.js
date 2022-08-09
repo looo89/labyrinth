@@ -1,8 +1,10 @@
 import { combineReducers, createStore } from "redux";
-import { reducer} from "./reducer"
+import { squareReducer } from "./squareReducer";
+import {arrowReducer} from "./arrowReducer"
 
 const rootReducer = combineReducers({
-    reducer
+    squareReducer,
+    arrowReducer,
 })
 
 export const store = createStore(rootReducer)

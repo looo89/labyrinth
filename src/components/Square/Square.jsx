@@ -3,9 +3,9 @@ import Selected from "./../UI/FieldMark/Selected/Selected"
 
 import {useDispatch} from "react-redux"
 
-import { setSelectedSquare } from "../../store/reducer"
 
 import cl from './Square.module.css'
+import { setSelectedSquare } from "../../store/squareReducer"
 
 
 function Square({marker, selected, count}) {
