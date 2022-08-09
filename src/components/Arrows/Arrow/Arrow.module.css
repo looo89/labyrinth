@@ -1,7 +1,9 @@
 .Arrow{
     box-sizing: border-box;
-    margin: 10px;
-    width: 30px;
-    height: 30px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: rgb(218, 186, 218);
+    width: 40px;
+    height: 40px;
     border: 1px solid purple;
 }

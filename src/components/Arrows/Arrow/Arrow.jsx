@@ -9,10 +9,10 @@ function Arrow({number, direction}) {
   
   return (
     <div className={cl.Arrow}>
-      {direction==='ArrowDown' && <ArrowDown/>}
-      {direction==='ArrowLeft' && <ArrowLeft/>}
-      {direction==='ArrowRight' && <ArrowRight/>}
-      {direction==='ArrowUp' && <ArrowUp/>}
+      {direction==='down' && <ArrowDown/>}
+      {direction==='left' && <ArrowLeft/>}
+      {direction==='right' && <ArrowRight/>}
+      {direction==='up' && <ArrowUp/>}
 
     </div>
   );
