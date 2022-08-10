@@ -1,12 +1,103 @@
 
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Arrows from './components/Arrows/Arrows';
 import Field from './components/Field/Field';
+import { setArrowDirection } from './store/arrowReducer';
+import { setTargetSquare } from './store/squareReducer';
 
 function App() {
+
+  const dispatch = useDispatch()
+  
+  const ArrowsMap = useSelector(state=>state.arrowReducer)
+  const squareMap=useSelector(state=>state.squareReducer)
+  const selectedSquare=squareMap.find(square=>square.selected===true)
+  const targetSquare=squareMap.find(square=>square.target===true)
+  console.log('selectedSquare', selectedSquare)
+  console.log('targetSquare', targetSquare)
+
+  let currentSquare=squareMap.find(square=> square.marker===true)
+
+  const setCurrentSquare=(currentSquareCount, direction)=>{
+    switch(currentSquareCount){
+      case 1 : {
+        if( direction==='right')  return squareMap.find(square=>square.count===2);
+        if (direction==='down')   return squareMap.find(square=>square.count===4);
+      }
+      case 2 : {
+        if( direction==='left') return squareMap.find(square=>square.count===1)
+        if( direction==='right') return squareMap.find(square=>square.count===3)
+        if (direction==='down') return squareMap.find(square=>square.count===5)
+      }
+      case 3 : {
+        if( direction==='left') return squareMap.find(square=>square.count===2)
+        if (direction==='down') return squareMap.find(square=>square.count=== 6)
+      }
+      case 4 : {
+        if( direction==='up') return squareMap.find(square=>square.count=== 1)
+        if( direction==='right') return squareMap.find(square=>square.count===5)
+        if (direction==='down') return squareMap.find(square=>square.count=== 7)
+      }
+      case 5 : {
+        if( direction==='left') return squareMap.find(square=>square.count=== 4)
+        if (direction==='up') return squareMap.find(square=>square.count=== 2)
+        if( direction==='right') return squareMap.find(square=>square.count=== 6)
+        if (direction==='down') return squareMap.find(square=>square.count=== 8)
+      }
+      case 6 : {
+        if( direction==='left') return squareMap.find(square=>square.count=== 5)
+        if( direction==='up') return squareMap.find(square=>square.count=== 3)
+        if ( direction==='down') return squareMap.find(square=>square.count===9)
+      }
+      case 7 : {
+        if( direction==='up') return squareMap.find(square=>square.count===4)
+        if ( direction==='right') return squareMap.find(square=>square.count=== 8)
+      }
+      case 8 : {
+        if( direction==='left') return squareMap.find(square=>square.count=== 7)
+        if( direction==='up') return squareMap.find(square=>square.count=== 5)
+        if ( direction==='right') return squareMap.find(square=>square.count=== 9)
+      }
+      case 9 : {
+        if( direction==='left') return squareMap.find(square=>square.count=== 8)
+        if ( direction==='up') return squareMap.find(square=>square.count=== 6)
+      }
+    }
+  }
+  function getRandomArrowDirection() {
+    let random= Math.floor(Math.random() * (4 - 1 + 1) + 1)
+    if(random==1) return 'left'
+    if(random==2) return 'up'
+    if(random==3) return 'right'
+    if(random==4) return 'down'
+  }
+
+  function setNewDirection(){
+  
+    let direction=''
+    do{
+      direction=getRandomArrowDirection()
+    } while(!currentSquare.possibleArrow.includes(direction))
+    return direction
+  }
+
+  const generatorArrow=()=>{
+    ArrowsMap.map(arrow=>{
+      let number = arrow.number
+      let direction=setNewDirection()
+      dispatch(setArrowDirection({number, direction}))
+      currentSquare = setCurrentSquare(currentSquare.count, direction)
+      dispatch(setTargetSquare(currentSquare.count)) 
+    })
+  }
+  console.log('currentSquare' ,currentSquare)
   return (
     <div className="App">
-      <Field/>  
+      <Field />
+      <div>Пройди по лабиринту по стрелкам от ячейки, помеченной флагом. Укажи конечную ячейку</div>
+    
+      <button onClick={generatorArrow}>start</button>
       <Arrows/>
     </div>
   );

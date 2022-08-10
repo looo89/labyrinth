@@ -1,15 +1,16 @@
 const SET_SELECTED_SQUARE='SET_SELECTED_SQUARE'
+const SET_TARGET_SQUARE='SET_TARGET_SQUARE'
 
 const initialState=[
-    {count: 1, marker: true, selected:false, possibleArrow: ['right', 'down']},
-    {count: 2, marker: false, selected:false, possibleArrow: ['left', 'right', 'down']},
-    {count: 3, marker: false, selected:false, possibleArrow: ['left', 'down']},
-    {count: 4, marker: false, selected:false, possibleArrow: ['up', 'right', 'down']},
-    {count: 5, marker: false, selected:false, possibleArrow: ['left', 'up', 'right', 'down']},
-    {count: 6, marker: false, selected:true, possibleArrow: ['left', 'up', 'down']},
-    {count: 7, marker: false, selected:false, possibleArrow: ['up', 'right']},
-    {count: 8, marker: false, selected:false, possibleArrow: ['left', 'up', 'right']},
-    {count: 9, marker: false, selected:false, possibleArrow: ['left', 'up']},
+    {count: 1, marker: false, selected:false, target:false, possibleArrow: ['right', 'down']},
+    {count: 2, marker: true, selected:false, target:false, possibleArrow: ['left', 'right', 'down']},
+    {count: 3, marker: false, selected:false, target:false, possibleArrow: ['left', 'down']},
+    {count: 4, marker: false, selected:false, target:false, possibleArrow: ['up', 'right', 'down']},
+    {count: 5, marker: false, selected:false, target:false, possibleArrow: ['left', 'up', 'right', 'down']},
+    {count: 6, marker: false, selected:false, target:false, possibleArrow: ['left', 'up', 'down']},
+    {count: 7, marker: false, selected:false, target:false, possibleArrow: ['up', 'right']},
+    {count: 8, marker: false, selected:false, target:false, possibleArrow: ['left', 'up', 'right']},
+    {count: 9, marker: false, selected:false, target:false, possibleArrow: ['left', 'up']},
 ]
 
 
@@ -22,9 +23,17 @@ export const squareReducer=(state=initialState, action)=>{
                 }else return {...el, selected: false}
             }
         )}
+        case SET_TARGET_SQUARE: {
+            return state.map(el=>{
+                if(el.count===action.payload){
+                    return {...el, target: true } 
+                }else return {...el, target: false}
+            }
+        )}
         
         default: return state
     }
 }
 
 export const setSelectedSquare=(payload)=>({type: SET_SELECTED_SQUARE, payload})
+export const setTargetSquare=(payload)=>({type: SET_TARGET_SQUARE, payload})

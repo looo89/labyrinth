@@ -9,9 +9,11 @@ import { setSelectedSquare } from "../../store/squareReducer"
 
 
 function Square({marker, selected, count}) {
+  
   const dispatch=useDispatch()
   const setSelected=(count)=>{
     dispatch(setSelectedSquare(count))
+    
   }
   
   return (
