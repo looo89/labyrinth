@@ -1,10 +1,11 @@
 
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Arrows from './components/Arrows/Arrows';
 import Field from './components/Field/Field';
 import { setArrowDirection } from './store/arrowReducer';
-import { setTargetSquare } from './store/squareReducer';
+import { setMarkerSquare, setTargetSquare } from './store/squareReducer';
 
 function App() {
 
@@ -12,13 +13,12 @@ function App() {
   
   const ArrowsMap = useSelector(state=>state.arrowReducer)
   const squareMap=useSelector(state=>state.squareReducer)
-  const selectedSquare=squareMap.find(square=>square.selected===true)
-  const targetSquare=squareMap.find(square=>square.target===true)
-  console.log('selectedSquare', selectedSquare)
-  console.log('targetSquare', targetSquare)
+  let markerSquare=squareMap.find(square=> square.marker===true)
+  
+  let currentSquare=markerSquare
+  let targetSquare=squareMap.find(square=> square.target===true)
 
-  let currentSquare=squareMap.find(square=> square.marker===true)
-
+  
   const setCurrentSquare=(currentSquareCount, direction)=>{
     switch(currentSquareCount){
       case 1 : {
@@ -81,9 +81,9 @@ function App() {
     } while(!currentSquare.possibleArrow.includes(direction))
     return direction
   }
-
+  
   const generatorArrow=()=>{
-    ArrowsMap.map(arrow=>{
+    ArrowsMap.map(arrow=>{                                    //генерируем стрелки
       let number = arrow.number
       let direction=setNewDirection()
       dispatch(setArrowDirection({number, direction}))
@@ -91,13 +91,20 @@ function App() {
       dispatch(setTargetSquare(currentSquare.count)) 
     })
   }
-  console.log('currentSquare' ,currentSquare)
+  const startGame=()=>{
+    let randomMarker= Math.floor(Math.random() * (9 - 1 + 1)) + 1;
+    dispatch(setMarkerSquare(randomMarker))
+    currentSquare=squareMap.find(square=>square.count===randomMarker)
+    generatorArrow()
+  }
+  
+
   return (
     <div className="App">
-      <Field />
+      <Field/>
       <div>Пройди по лабиринту по стрелкам от ячейки, помеченной флагом. Укажи конечную ячейку</div>
     
-      <button onClick={generatorArrow}>start</button>
+      <button onClick={startGame}>start</button>
       <Arrows/>
     </div>
   );

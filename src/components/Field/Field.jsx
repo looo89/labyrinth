@@ -3,7 +3,7 @@ import { useSelector} from "react-redux"
 
 import cl from './Field.module.css'
 
-function Field({currentSquare}) {
+function Field() {
   const squareMap = useSelector(state=>state.squareReducer)
   
  
@@ -16,7 +16,8 @@ function Field({currentSquare}) {
               marker={item.marker}
               selected={item.selected}
               count={item.count}
-              currentSquare={currentSquare}
+              target={item.target}
+
             />)
         }
     </div>

@@ -1,9 +1,10 @@
 const SET_SELECTED_SQUARE='SET_SELECTED_SQUARE'
 const SET_TARGET_SQUARE='SET_TARGET_SQUARE'
+const SET_MARKER_SQUARE='SET_MARKER_SQUARE'
 
 const initialState=[
     {count: 1, marker: false, selected:false, target:false, possibleArrow: ['right', 'down']},
-    {count: 2, marker: true, selected:false, target:false, possibleArrow: ['left', 'right', 'down']},
+    {count: 2, marker: false, selected:false, target:false, possibleArrow: ['left', 'right', 'down']},
     {count: 3, marker: false, selected:false, target:false, possibleArrow: ['left', 'down']},
     {count: 4, marker: false, selected:false, target:false, possibleArrow: ['up', 'right', 'down']},
     {count: 5, marker: false, selected:false, target:false, possibleArrow: ['left', 'up', 'right', 'down']},
@@ -16,6 +17,13 @@ const initialState=[
 
 export const squareReducer=(state=initialState, action)=>{
     switch(action.type) {
+        case SET_MARKER_SQUARE: {
+            return state.map(el=>{
+                if(el.count===action.payload){
+                    return {...el, marker: true } 
+                }else return {...el, marker: false}
+            }
+        )}
         case SET_SELECTED_SQUARE: {
             return state.map(el=>{
                 if(el.count===action.payload){
@@ -37,3 +45,6 @@ export const squareReducer=(state=initialState, action)=>{
 
 export const setSelectedSquare=(payload)=>({type: SET_SELECTED_SQUARE, payload})
 export const setTargetSquare=(payload)=>({type: SET_TARGET_SQUARE, payload})
+export const setMarkerSquare=(payload)=>({type: SET_MARKER_SQUARE, payload})
+
+
