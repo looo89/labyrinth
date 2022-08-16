@@ -1,6 +1,7 @@
 const SET_SELECTED_SQUARE='SET_SELECTED_SQUARE'
 const SET_TARGET_SQUARE='SET_TARGET_SQUARE'
 const SET_MARKER_SQUARE='SET_MARKER_SQUARE'
+const SET_DEFAULT_SQUARE='SET_DEFAULT_SQUARE'
 
 const initialState=[
     {count: 1, marker: false, selected:false, target:false, possibleArrow: ['right', 'down']},
@@ -38,6 +39,9 @@ export const squareReducer=(state=initialState, action)=>{
                 }else return {...el, target: false}
             }
         )}
+        case SET_DEFAULT_SQUARE: {
+            return initialState
+        }
         
         default: return state
     }
@@ -46,5 +50,7 @@ export const squareReducer=(state=initialState, action)=>{
 export const setSelectedSquare=(payload)=>({type: SET_SELECTED_SQUARE, payload})
 export const setTargetSquare=(payload)=>({type: SET_TARGET_SQUARE, payload})
 export const setMarkerSquare=(payload)=>({type: SET_MARKER_SQUARE, payload})
+export const setDefaultSquare=()=>({type: SET_DEFAULT_SQUARE})
+
 
 

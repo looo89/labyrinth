@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Arrows from './components/Arrows/Arrows';
 import Field from './components/Field/Field';
-import { setArrowDirection } from './store/arrowReducer';
-import { setMarkerSquare, setTargetSquare } from './store/squareReducer';
+import { setArrowDirection, setDefaultArrow } from './store/arrowReducer';
+import { setDefaultResult } from './store/resultReducer';
+import { setDefaultSquare, setMarkerSquare, setTargetSquare } from './store/squareReducer';
 
 function App() {
 
@@ -91,12 +92,19 @@ function App() {
       dispatch(setTargetSquare(currentSquare.count)) 
     })
   }
+  const returnGame=()=>{
+    dispatch(setDefaultArrow())
+    dispatch(setDefaultSquare())
+    dispatch(setDefaultResult())
+  }
   const startGame=()=>{
+    returnGame()
     let randomMarker= Math.floor(Math.random() * (9 - 1 + 1)) + 1;
     dispatch(setMarkerSquare(randomMarker))
     currentSquare=squareMap.find(square=>square.count===randomMarker)
     generatorArrow()
   }
+
   
 
   return (

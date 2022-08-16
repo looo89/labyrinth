@@ -1,5 +1,6 @@
 
 const SET_ARROWS_DIRECTION='SET_ARROWS_DIRECTION'
+const SET_DEFAULT='SET_DEFAULT'
 
 const initialState= [
         {number: 1, direction: ''},
@@ -25,9 +26,14 @@ export const arrowReducer=(state=initialState, action)=>{
                 }
             })
         }
+        case SET_DEFAULT:{
+            return initialState
+        }
         
     default: return state
     } 
 }
 
 export const setArrowDirection=(payload)=>({type: SET_ARROWS_DIRECTION, payload})
+
+export const setDefaultArrow=()=>({type: SET_DEFAULT})

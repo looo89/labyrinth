@@ -7,3 +7,12 @@
     height: 40px;
     border: 1px solid purple;
 }
+
+
+@media (max-width:500px) {
+    .Arrow{
+        width: 30px;
+        height: 30px;
+        margin: 1px;
+    }
+ }

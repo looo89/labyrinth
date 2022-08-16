@@ -5,9 +5,7 @@ import cl from './Field.module.css'
 
 function Field() {
   const squareMap = useSelector(state=>state.squareReducer)
-  
  
-
   return (
     <div className={cl.Field}>
         {
